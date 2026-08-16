@@ -4,6 +4,8 @@ import "katex/dist/katex.min.css";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
+import { site } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,11 +19,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "量化精要 · Quant Essentials",
-    template: "%s · 量化精要",
+    default: `${site.nameZh} · ${site.nameEn}`,
+    template: `%s · ${site.nameZh}`,
   },
-  description:
-    "从 Quant Wiki 基础词条提炼、纠错后的量化核心知识。中英对照，只保留必须掌握的定义、公式与误区。",
+  description: site.description,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Providers>
           <SiteHeader />
           {children}
+          <SiteFooter />
         </Providers>
       </body>
     </html>

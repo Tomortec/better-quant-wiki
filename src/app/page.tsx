@@ -3,6 +3,7 @@ import { chapters } from "@/content/chapters";
 import { allConcepts } from "@/content/glossary";
 import { corrections } from "@/content/corrections";
 import { Badge } from "@/components/ui/badge";
+import { site } from "@/lib/site";
 
 export default function HomePage() {
   const core = allConcepts.filter((c) => c.importance === "core").length;
@@ -10,7 +11,7 @@ export default function HomePage() {
   return (
     <main className="mx-auto w-full max-w-5xl px-4 py-16 sm:px-6 sm:py-24">
       <p className="font-mono text-xs tracking-widest text-muted-foreground uppercase">
-        Quant Essentials
+        {site.nameEn}
       </p>
       <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">
         量化真正要用的概念，

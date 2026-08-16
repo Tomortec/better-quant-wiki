@@ -1,10 +1,45 @@
-# 量化精要
+# Better Quant Wiki
 
-从 [Quant Wiki /basic](https://quant-wiki.com/basic/) 提炼并纠错后的量化核心知识站。中英对照，按九章笔记 + 术语表组织。
+**量化精要** — a concise Chinese–English primer for quantitative finance.
+
+Quant Wiki’s `/basic` list covers useful ground, but the articles are long, repetitive, and sometimes wrong. This project keeps the topic coverage, rewrites the knowledge the way a practitioner actually uses it, and records the corrections.
+
+- Nine reading notes (probability → risk)
+- A searchable glossary: Chinese + English, formulas, caveats
+- Importance tags: **core** / **supporting** / **context**
+
+## Run locally
+
+Requires Node.js 20.9+ (24 LTS recommended).
 
 ```bash
+git clone https://github.com/Tomortec/better-quant-wiki.git
+cd better-quant-wiki
 npm install
 npm run dev
 ```
 
-打开 [http://localhost:3000](http://localhost:3000)。
+Open [http://localhost:3000](http://localhost:3000). `⌘K` searches terms.
+
+```bash
+npm run lint
+npm run typecheck
+npm run build
+```
+
+## Project layout
+
+```
+src/app/                 # Next.js App Router pages
+src/content/chapters.ts  # Notes
+src/content/glossary/    # Terms
+src/content/corrections.ts
+```
+
+## License
+
+[MIT](LICENSE). The wording here is original. The original topic *list* is from [Quant Wiki](https://quant-wiki.com/basic/) / [LLMQuant/quant-wiki](https://github.com/LLMQuant/quant-wiki); we are not affiliated with them.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). Factual fixes and missing core terms are the highest-signal PRs.

@@ -1,0 +1,25 @@
+name: Content error
+description: A definition, formula, translation, or tag is wrong or incomplete.
+title: "[content] "
+labels: ["content"]
+body:
+  - type: input
+    id: term
+    attributes:
+      label: Term or chapter
+      placeholder: e.g. 贝塔 / Beta, or notes/pricing
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: What it says now
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What it should say
+      description: Include a source (textbook, paper, exchange spec) if you have one.
+    validations:
+      required: true

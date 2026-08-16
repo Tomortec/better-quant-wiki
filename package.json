@@ -1,12 +1,26 @@
 {
-  "name": "learning-quant",
+  "name": "better-quant-wiki",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "description": "Better Quant Wiki — a concise Chinese-English quantitative finance primer.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tomortec/better-quant-wiki.git"
+  },
+  "homepage": "https://github.com/Tomortec/better-quant-wiki#readme",
+  "bugs": {
+    "url": "https://github.com/Tomortec/better-quant-wiki/issues"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint .",
+    "typecheck": "next typegen && tsc --noEmit"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

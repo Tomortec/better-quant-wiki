@@ -4,11 +4,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, Moon, Search, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { SearchCommand } from "@/components/search-command";
 import { SideNav } from "@/components/side-nav";
+import { site } from "@/lib/site";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -38,9 +39,9 @@ export function SiteHeader() {
           </Sheet>
 
           <Link href="/" className="flex items-baseline gap-2">
-            <span className="text-sm font-semibold tracking-tight">量化精要</span>
+            <span className="text-sm font-semibold tracking-tight">{site.nameZh}</span>
             <span className="hidden font-mono text-[11px] text-muted-foreground sm:inline">
-              Quant Essentials
+              {site.nameEn}
             </span>
           </Link>
 
@@ -110,10 +111,11 @@ function NavLink({
   );
 }
 
+const emptySubscribe = () => () => {};
+
 function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
   if (!mounted) {
     return <Button variant="ghost" size="icon-sm" aria-hidden />;
   }
