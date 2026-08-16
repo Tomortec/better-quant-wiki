@@ -2,6 +2,8 @@
 
 **Better Quant Wiki** — 从 Quant Wiki 基础词条提炼、纠错后的量化核心知识。中英对照，只保留必须掌握的定义、公式与误区。
 
+站点：[wiki.zibenxiuxing.com](https://wiki.zibenxiuxing.com)
+
 Quant Wiki 的 `/basic` 列表覆盖面不错，但原文长、重复，还有事实错误。这里保留选题，按从业者真正会用的方式重写，并把勘误记下来。
 
 - 九章阅读笔记（概率 → 风险）

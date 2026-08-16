@@ -15,6 +15,7 @@ export default function HomePage() {
       </p>
       <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">
         量化真正要用的概念，
+        <br />
         <span className="text-muted-foreground">而不是百科拼盘。</span>
       </h1>
       <p className="mt-6 max-w-2xl text-[16px] leading-7 text-muted-foreground">
