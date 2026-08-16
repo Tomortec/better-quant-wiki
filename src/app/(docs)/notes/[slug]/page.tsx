@@ -5,9 +5,11 @@ import { chapters, chapterById } from "@/content/chapters";
 import { getConcept } from "@/content/glossary";
 import type { ChapterId } from "@/content/types";
 import { Formula } from "@/components/formula";
+import { JsonLd } from "@/components/json-ld";
 import { Prose } from "@/components/prose";
 import { TermLink } from "@/components/term";
 import { ImportanceBadge } from "@/components/concept-card";
+import { chapterJsonLd, chapterMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -19,10 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const ch = chapterById[slug as ChapterId];
   if (!ch) return {};
-  return {
-    title: `${ch.zh} · ${ch.en}`,
-    description: ch.summary,
-  };
+  return chapterMetadata(ch);
 }
 
 export default async function NotePage({ params }: Props) {
@@ -36,6 +35,7 @@ export default async function NotePage({ params }: Props) {
 
   return (
     <article className="mx-auto max-w-2xl">
+      <JsonLd data={chapterJsonLd(ch)} />
       <p className="font-mono text-xs text-muted-foreground">
         {ch.n} / {chapters.length}
       </p>
