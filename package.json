@@ -3,7 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
-  "description": "量化精要：从 Quant Wiki 基础词条提炼、纠错后的量化核心知识。中英对照。",
+  "description": "量化精要 Better Quant Wiki：中英对照的量化金融核心知识，含术语表、公式与 Quant Wiki 勘误。A bilingual quantitative finance primer and glossary.",
+  "keywords": [
+    "quantitative-finance",
+    "quant",
+    "quant-wiki",
+    "glossary",
+    "wiki",
+    "bilingual",
+    "chinese",
+    "derivatives",
+    "risk-management",
+    "factor-investing",
+    "black-scholes",
+    "options",
+    "probability",
+    "nextjs"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Tomortec/better-quant-wiki.git"
@@ -20,7 +36,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "next typegen && tsc --noEmit"
+    "typecheck": "next typegen && tsc --noEmit",
+    "glossary": "node scripts/generate-glossary.mjs"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
