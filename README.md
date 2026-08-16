@@ -1,8 +1,16 @@
-# 量化精要
+<p align="center">
+  <img src="src/app/icon.svg" width="72" height="72" alt="量化精要">
+</p>
 
-**Better Quant Wiki** — 从 Quant Wiki 基础词条提炼、纠错后的量化核心知识。中英对照，只保留必须掌握的定义、公式与误区。
+<h1 align="center">量化精要</h1>
 
-站点：[wiki.zibenxiuxing.com](https://wiki.zibenxiuxing.com)
+<p align="center">
+  <strong>Better Quant Wiki</strong> — 从 Quant Wiki 基础词条提炼、纠错后的量化核心知识。中英对照，只保留必须掌握的定义、公式与误区。
+</p>
+
+<p align="center">
+  站点：<a href="https://wiki.zibenxiuxing.com">wiki.zibenxiuxing.com</a>
+</p>
 
 Quant Wiki 的 `/basic` 列表覆盖面不错，但原文长、重复，还有事实错误。这里保留选题，按从业者真正会用的方式重写，并把勘误记下来。
 
