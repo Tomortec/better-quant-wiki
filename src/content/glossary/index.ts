@@ -1,4 +1,5 @@
 import type { ChapterId, Concept } from "../types";
+import { chapters } from "../chapters";
 import { derivatives } from "./derivatives";
 import { macro } from "./macro";
 import { markets } from "./markets";
@@ -29,6 +30,24 @@ if (bySlug.size !== allConcepts.length) {
     return false;
   });
   throw new Error(`Duplicate concept slugs: ${dupes.map((d) => d.slug).join(", ")}`);
+}
+
+for (const c of allConcepts) {
+  for (const s of c.related) {
+    if (!bySlug.has(s)) {
+      throw new Error(`Concept "${c.slug}" references unknown related slug "${s}"`);
+    }
+  }
+}
+
+for (const ch of chapters) {
+  for (const sec of ch.sections) {
+    for (const s of sec.conceptSlugs) {
+      if (!bySlug.has(s)) {
+        throw new Error(`Chapter "${ch.id}" section "${sec.id}" references unknown concept slug "${s}"`);
+      }
+    }
+  }
 }
 
 export function getConcept(slug: string): Concept | undefined {

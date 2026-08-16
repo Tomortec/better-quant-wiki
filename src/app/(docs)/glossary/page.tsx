@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { allConcepts, importanceLabel } from "@/content/glossary";
 import { chapters } from "@/content/chapters";
 import type { Importance } from "@/content/types";
@@ -25,6 +26,14 @@ export default function GlossaryPage() {
       </h1>
       <p className="mt-4 text-[15px] leading-7 text-muted-foreground">
         {allConcepts.length} 条。核心 / 配套 / 背景 三档表示「是否必须能默写」。点开单条可看公式与关联。
+        条目里的「注意」栏记录常见误区，含对 Quant Wiki 原文的勘误，汇总见
+        <Link
+          href="/corrections"
+          className="underline underline-offset-2 hover:text-foreground"
+        >
+          勘误表
+        </Link>
+        。
       </p>
       <p className="mt-2 font-mono text-xs text-muted-foreground">
         {(["core", "supporting", "context"] as Importance[])

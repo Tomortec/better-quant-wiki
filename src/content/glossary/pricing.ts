@@ -58,7 +58,7 @@ export const pricing: Concept[] = [
       "\\beta_U=\\frac{\\beta_E}{1+(1-t)D/E}\\quad(\\text{常见 Hamada 近似})",
     why: "比较两家公司的业务风险，不能直接比权益 β：杠杆更高的公司权益 β 自然更高。",
     caveat: "公式依赖债务 β=0、税率与杠杆稳定等假设。高信用风险时债务也有 β。",
-    related: ["beta", "leverage", "wacc-adjacent"],
+    related: ["beta", "leverage", "wacc"],
   },
   {
     slug: "alpha",
@@ -179,10 +179,10 @@ export const pricing: Concept[] = [
     definition:
       "收益的离散程度，通常用标准差（已实现）或期权隐含（implied）。是风险的一个度量，不是全部（还有偏度、跳跃、流动性）。",
     formula:
-      "\\sigma=\\sqrt{\\mathrm{Var}(r)}\\quad\\text{年化时常}\\times\\sqrt{252}",
+      "\\sigma=\\sqrt{\\mathrm{Var}(r)},\\quad\\text{年化时通常乘}\\ \\sqrt{252}",
     why: "期权定价、仓位缩放（风险平价）、风控限额的共同输入。波动聚集意味着 σ 可预测，价格方向难预测。",
     caveat: "√252 假设独立同分布。有自相关或隔夜跳空时，年化是近似。高波动 ≠ 高 β。",
-    related: ["vix", "variance", "implied-vol", "garch-adjacent"],
+    related: ["vix", "variance", "implied-vol", "garch"],
   },
   {
     slug: "vix",

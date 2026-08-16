@@ -207,7 +207,7 @@ export const markets: Concept[] = [
     definition:
       "两种货币的相对价格。直接标价与间接标价相反；升值/贬值必须说清是哪一种货币。",
     why: "PPP、利率平价、贸易条件，最后都落到汇率这个价格。量化要区分名义汇率与实际汇率。",
-    related: ["forex", "purchasing-power", "carry-trade"],
+    related: ["forex", "purchasing-power-parity", "carry-trade"],
   },
   {
     slug: "dealer",
@@ -217,7 +217,7 @@ export const markets: Concept[] = [
     importance: "core",
     definition:
       "用自己的账户做市、通过买卖价差盈利的中介。与代理客户订单的经纪商（broker）相对；现实中常是 broker-dealer。",
-    why: "你成交的价格里嵌着经销商的库存风险补偿。理解 dealer 如何对冲，才能理解价差何时变宽。",
+    why: "你成交的价格里嵌着交易商的库存风险补偿。理解 dealer 如何对冲，才能理解价差何时变宽。",
     related: ["prime-brokerage", "limit-order-book", "liquidity"],
   },
   {
@@ -238,7 +238,7 @@ export const markets: Concept[] = [
     chapter: "markets",
     importance: "core",
     definition:
-      "用自有资金作为抵押，借入资金或维持衍生品头寸的垫头。期货是每日盯市保证金；股票融资是监管与券商保证金。",
+      "为借入资金或维持衍生品头寸而存入的自有抵押资金。期货是每日盯市保证金；股票融资是监管与券商保证金。",
     why: "杠杆的具体实现。爆仓不是「亏损超过本金」的抽象，而是保证金公式被击穿。",
     related: ["buying-on-margin", "leverage", "futures"],
   },
@@ -306,6 +306,20 @@ export const markets: Concept[] = [
     related: ["limit-order-book", "bid-ask", "market-order"],
   },
   {
+    slug: "bid-ask",
+    zh: "买卖价差",
+    en: "Bid-Ask Spread",
+    chapter: "markets",
+    importance: "core",
+    definition:
+      "最优买价（bid）与最优卖价（ask）之间的距离：做市商提供即时性的报酬，也是你每次进出场的隐性成本。",
+    formula: "\\text{价差}=P_{\\text{ask}}-P_{\\text{bid}}",
+    why: "小价差 × 高换手 = 大成本。高频策略的毛 alpha 常常整个被价差吃掉；危机时价差变宽，「流动性消失」首先体现在这里。",
+    caveat:
+      "回测按中间价或收盘价成交，等于假设价差为零。价差有日内形态（开盘宽、盘中窄），不是常数。",
+    related: ["quotation", "limit-order-book", "dealer", "liquidity"],
+  },
+  {
     slug: "limit-order-book",
     zh: "限价订单簿",
     en: "Limit Order Book",
@@ -315,7 +329,7 @@ export const markets: Concept[] = [
     definition:
       "按价格优先、时间优先排列的买卖限价单集合。最优买卖价形成价差；深度刻画每个价位的数量。",
     why: "微观结构、冲击成本、高频，全部发生在订单簿上。执行算法的本质是怎样在簿上取流动性或提供流动性。",
-    related: ["limit-order", "market-order", "high-frequency-trading"],
+    related: ["limit-order", "market-order", "hft"],
   },
   {
     slug: "market-order",

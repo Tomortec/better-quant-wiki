@@ -50,7 +50,8 @@ export const valuation: Concept[] = [
     definition:
       "把持有期收益年化。必须声明是算术还是几何、是否含股息、用多少天（252 还是 365）。",
     why: "没有统一年化，夏普、比较、归因全不可比。",
-    caveat: "用「月收益 × 12」年化算术均值，会高估波动与可实现财富。几何年化才对应财富增长。",
+    caveat:
+      "「月收益 × 12」年化的是算术均值，会高估可实现复利——几何年化才对应财富增长。波动率年化是 ×√12，不是 ×12。",
     related: ["cagr", "compounding", "log-return"],
   },
   {
@@ -77,6 +78,22 @@ export const valuation: Concept[] = [
     formula: "V=\\mathbb{E}[\\text{CF}]\\ \\text{折现，或风险中性}\\ \\mathbb{E}^\\mathbb{Q}[\\text{CF}]e^{-rT}",
     why: "同样的盈利，贴现率差 1% 可以让成长股估值差一截。宏观利率通过这条通道进入股价。",
     related: ["present-value", "capm", "interest-rate", "discount-rate-fed"],
+  },
+  {
+    slug: "wacc",
+    zh: "加权平均资本成本",
+    en: "Weighted Average Cost of Capital",
+    abbr: "WACC",
+    chapter: "valuation",
+    importance: "supporting",
+    definition:
+      "公司全部长期资本按市值加权的平均成本：税后债务成本与权益成本的加权平均。是整条公司自由现金流（FCFF）的贴现率。",
+    formula:
+      "\\mathrm{WACC}=\\frac{E}{E+D}\\,r_E+\\frac{D}{E+D}\\,r_D\\,(1-t)",
+    why: "项目与并购估值的默认贴现率。r_E 通常来自 CAPM，所以利率与 β 经由 WACC 进入一切 DCF。",
+    caveat:
+      "用公司 WACC 折所有项目是常见错误：新项目的风险未必等于公司平均风险。权重应该用市值，不是账面值。",
+    related: ["discount-rate-dcf", "capm", "unlevered-beta", "present-value"],
   },
   {
     slug: "annuity-fv",
@@ -110,7 +127,7 @@ export const valuation: Concept[] = [
     chapter: "valuation",
     importance: "core",
     definition:
-      "价格除以每股收益。可用 TTM、前瞻、或周期调整。粗略：P/E ≈ 1/(r−g) 在 Gordon 模型下。",
+      "价格除以每股收益。可用 TTM、前瞻、或周期调整。粗略地，Gordon 模型满派息时 P/E ≈ 1/(r−g)，一般情形还要乘派息率。",
     formula: "\\mathrm{P/E}=\\frac{P}{\\mathrm{EPS}}",
     why: "最常用的相对估值。横截面价值因子常用 B/P 或 E/P，而不是孤立看一家的 P/E。",
     caveat: "原文英文写成 PdivE Ratio，是把 / 错编码成了 div。亏损公司 P/E 无意义；会计收益可操纵。",
@@ -138,6 +155,19 @@ export const valuation: Concept[] = [
       "公司向股东分配的现金（或股票）。除息后价格通常下调约等于股息。总收益 = 价格变化 + 股息。",
     why: "指数回报必须用总回报指数。忽略股息会系统性低估股票、高估「估值扩张」。",
     related: ["equity", "pe-ratio", "annual-return"],
+  },
+  {
+    slug: "share-issuance",
+    zh: "股票发行（增发）",
+    en: "Share Issuance",
+    chapter: "valuation",
+    importance: "supporting",
+    definition:
+      "公司发行新股融资：IPO 是第一次，其后是增发（follow-on / SEO）与配售。净发行（发行减回购）是股票供给端的变量。",
+    why: "实证上高净发行的股票随后收益偏低（发行/回购效应），是最稳的异象之一。A 股的定增与解禁节奏直接是事件驱动输入。",
+    caveat:
+      "发行不是摊薄的全部：可转债转股、期权行权同样增加股数。要看总股本（shares outstanding）的时间序列，而不是只看公告。",
+    related: ["ipo", "dilution", "fama-french", "equity"],
   },
   {
     slug: "dilution",
@@ -256,7 +286,7 @@ export const valuation: Concept[] = [
   },
   {
     slug: "ma-deals",
-    zh: "合并与收购",
+    zh: "兼并与收购",
     en: "Mergers and Acquisitions",
     abbr: "M&A",
     chapter: "valuation",

@@ -61,6 +61,34 @@ export const derivatives: Concept[] = [
     related: ["forward-contract", "margin", "hedge"],
   },
   {
+    slug: "call-option",
+    zh: "看涨期权",
+    en: "Call Option",
+    chapter: "derivatives",
+    importance: "core",
+    definition:
+      "持有者有权（无义务）在到期（欧式）或到期前（美式）以行权价买入标的。买方损失有限（权利金）、上行开放；卖方收权利金、承担上行。",
+    formula: "\\text{欧式看涨到期价值}=(S_T-K)^+",
+    why: "表达上行观点、备兑卖出（covered call）增强收益、构造价差与组合结构的积木。默顿模型里，股权本身就是企业资产的看涨期权。",
+    caveat:
+      "买深度虚值看涨的「便宜」是错觉：多数到期归零，你付的是凸性的价格。裸卖看涨的亏损理论上无界。",
+    related: ["put-option", "put-call-parity", "delta", "merton-model"],
+  },
+  {
+    slug: "basis",
+    zh: "基差",
+    en: "Basis",
+    chapter: "derivatives",
+    importance: "supporting",
+    definition:
+      "现货价格与期货价格之差。到期时应收敛到零（扣除摩擦）；收敛路径与持仓的融资成本，就是基差交易的 PnL。",
+    formula: "\\text{基差}=S-F",
+    why: "期货对冲掉的只是标的方向，留下的是基差风险。国债基差、期现套利、ETF 折溢价，本质都是同一类交易。",
+    caveat:
+      "「对冲后没风险」忽略了基差本身会走。2020 年 3 月国债基差交易被迫平仓，就是杠杆 × 基差的教科书案例。",
+    related: ["futures", "forward-price", "hedge", "ltcm"],
+  },
+  {
     slug: "put-option",
     zh: "看跌期权",
     en: "Put Option",
@@ -71,7 +99,7 @@ export const derivatives: Concept[] = [
     formula:
       "\\text{欧式看跌到期价值}=(K-S_T)^+",
     why: "买保险、表达下行观点、构造领口与价差。看跌—看涨平价把看跌、看涨、远期连在一起。",
-    related: ["long-put", "call-adjacent", "put-call-parity", "binary-option"],
+    related: ["long-put", "call-option", "put-call-parity", "binary-option"],
   },
   {
     slug: "long-put",
@@ -141,7 +169,7 @@ export const derivatives: Concept[] = [
     chapter: "derivatives",
     importance: "core",
     definition:
-      "期权价格对标的价格的一阶导数。也是复制组合里应持有的标的数量（在模型内）。看涨 Δ∈(0,1)，看跌 Δ∈(−1,0)（无股指分红的欧式）。",
+      "期权价格对标的价格的一阶导数。也是复制组合里应持有的标的数量（在模型内）。欧式看涨 Δ∈(0,1)，看跌 Δ∈(−1,0)。",
     formula: "\\Delta=\\frac{\\partial V}{\\partial S}",
     why: "对冲比率。Delta 中性意味着一阶上不赌方向，只剩 Gamma/Vega/Theta。",
     caveat: "原文量化章列了 Gamma 却几乎不单独定义 Delta，只在「德尔塔对冲」里出现。Delta 是希腊值之首。",
