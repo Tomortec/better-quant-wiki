@@ -79,7 +79,7 @@ export const probability: Concept[] = [
     slug: "uniform-distribution",
     zh: "均匀分布",
     en: "Uniform Distribution",
-    chapter: "statistics",
+    chapter: "probability",
     importance: "supporting",
     definition:
       "在区间 [a,b] 上密度为常数 1/(b−a) 的分布。每个等长子区间概率相同。",
@@ -133,6 +133,21 @@ export const probability: Concept[] = [
     related: ["correlation", "covariance", "beta", "r-squared"],
   },
   {
+    slug: "variance",
+    zh: "方差",
+    en: "Variance",
+    abbr: "σ²",
+    chapter: "probability",
+    importance: "supporting",
+    definition:
+      "随机变量偏离其均值的平均平方距离，标准差的平方。组合方差把协方差矩阵全部装进来：wᵀΣw。",
+    formula: "\\mathrm{Var}(X)=\\mathbb{E}[(X-\\mathbb{E}X)^2]",
+    why: "均值—方差框架是组合理论的起点；方差掉期与方差溢价把「方差」本身变成可交易资产。",
+    caveat:
+      "平方项让方差对极端值极度敏感：一次崩盘可以主导整段样本方差。厚尾数据下「样本方差」本身的抽样波动就很大。",
+    related: ["volatility", "covariance", "expected-value", "probability-distribution"],
+  },
+  {
     slug: "monte-carlo",
     zh: "蒙特卡罗模拟",
     en: "Monte Carlo Simulation",
@@ -173,13 +188,13 @@ export const probability: Concept[] = [
     why: "在均值显著不为零且同号时，比较相对风险比单看 σ 公平。例如比较两种费后收益流的稳定性。",
     caveat:
       "收益均值接近 0 时 CV 会爆炸，没有意义。夏普比率才是「每单位波动的超额收益」，不要用 CV 替代风险调整收益。",
-    related: ["volatility", "sharpe-adjacent", "expected-value"],
+    related: ["volatility", "sharpe-ratio", "expected-value"],
   },
   {
     slug: "p-value",
     zh: "P 值",
     en: "P-value",
-    chapter: "probability",
+    chapter: "statistics",
     importance: "core",
     definition:
       "在原假设 H₀ 为真时，得到与观测一样极端或更极端的统计量的概率。它不是「H₀ 为真的概率」，更不是效应大小。",
@@ -193,7 +208,7 @@ export const probability: Concept[] = [
     slug: "t-test",
     zh: "t 检验",
     en: "t-test",
-    chapter: "probability",
+    chapter: "statistics",
     importance: "core",
     definition:
       "用 t 分布检验均值（或回归系数）是否等于某值。当方差未知、样本有限时，用样本标准差代替 σ，尾部比正态更厚。",
@@ -208,7 +223,7 @@ export const probability: Concept[] = [
     slug: "z-score",
     zh: "Z 分数",
     en: "Z-score",
-    chapter: "probability",
+    chapter: "statistics",
     importance: "core",
     definition:
       "把观测值减去均值再除以标准差，得到以「几个 σ」为单位的位置。Altman Z-score 是完全不同的信用评分模型，不要混淆。",
@@ -222,7 +237,7 @@ export const probability: Concept[] = [
     slug: "z-test",
     zh: "Z 检验",
     en: "Z-test",
-    chapter: "probability",
+    chapter: "statistics",
     importance: "supporting",
     definition:
       "在方差已知（或 n 很大、靠 CLT）时，用标准正态做均值或比例检验。",
@@ -234,7 +249,7 @@ export const probability: Concept[] = [
     slug: "calculus-derivative",
     zh: "导数（微积分）",
     en: "Derivative (calculus)",
-    chapter: "probability",
+    chapter: "derivatives",
     importance: "core",
     definition:
       "函数的瞬时变化率。期权希腊值、久期、凸性、梯度优化，全是导数或高阶导数。",

@@ -15,7 +15,7 @@ export const statistics: Concept[] = [
     why: "策略的「平均赚多少」、期权的风险中性价格、信用损失的 EL，都是期望。决策永远对期望加风险，而不是对单次实现。",
     caveat:
       "期望可以被尾部绑架：正期望策略仍可破产（方差/杠杆过大）。几何期望（对数效用）在重复博弈、仓位选择里往往比算术期望更相关。",
-    related: ["law-of-large-numbers", "present-value", "kelly-adjacent"],
+    related: ["law-of-large-numbers", "present-value", "kelly-criterion"],
   },
   {
     slug: "covariance",
@@ -116,6 +116,22 @@ export const statistics: Concept[] = [
     caveat:
       "原文式的频率派解释经常被写成「参数有 95% 可能在里面」。那是贝叶斯可信区间的语言，前提不同。",
     related: ["hypothesis-testing", "t-test", "expected-value"],
+  },
+  {
+    slug: "sharpe-ratio",
+    zh: "夏普比率",
+    en: "Sharpe Ratio",
+    abbr: "SR",
+    chapter: "statistics",
+    importance: "core",
+    definition:
+      "每单位总波动换来的平均超额收益。年化时用 √T 缩放；分子分母必须同频率、同口径（含费、含无风险利率的取法）。",
+    formula:
+      "\\mathrm{SR}=\\frac{\\mathbb{E}[R-R_f]}{\\sigma_{R-R_f}}",
+    why: "策略比较的第一把尺子，并且直接连着显著性：t ≈ SR × √T。三年的 SR 1 和十年的 SR 1，证据强度完全不同。",
+    caveat:
+      "夏普对负偏、厚尾策略系统性偏友好：卖期权、carry 在崩盘前夏普都很高。挖过多个因子后要看 haircut Sharpe。别忘扣成本与容量。",
+    related: ["t-test", "confidence-interval", "volatility", "backtesting"],
   },
   {
     slug: "empirical-rule",
@@ -258,6 +274,34 @@ export const statistics: Concept[] = [
     caveat:
       "重叠样本（用滚动 20 日收益当观测）会人为制造巨大自相关。日收益自相关弱，不代表周/月频率或波动没有结构。",
     related: ["mean-reversion", "momentum", "ols", "heteroskedasticity"],
+  },
+  {
+    slug: "heteroskedasticity",
+    zh: "异方差",
+    en: "Heteroskedasticity",
+    chapter: "statistics",
+    importance: "supporting",
+    definition:
+      "误差的方差不是常数，而随水平、时间或状态变化。金融时间序列里几乎总是如此：波动聚集就是最直观的异方差。",
+    why: "异方差下 OLS 系数仍可一致，但标准误错误、检验失真。White/HC 稳健标准误或 HAC 是默认动作，GARCH 是进一步的建模。",
+    caveat:
+      "把异方差当「小问题」会系统性高估 t 值。残差平方对自变量或时间作图，是最便宜的诊断。",
+    related: ["ols", "autocorrelation", "garch", "volatility"],
+  },
+  {
+    slug: "garch",
+    zh: "GARCH 模型",
+    en: "GARCH",
+    chapter: "statistics",
+    importance: "supporting",
+    definition:
+      "让条件方差自身成为自回归过程的波动模型：今天的大波动预示明天的大波动（波动聚集），而收益率水平仍近乎不可预测。",
+    formula:
+      "\\sigma_t^2=\\omega+\\alpha\\,\\varepsilon_{t-1}^2+\\beta\\,\\sigma_{t-1}^2",
+    why: "风险平价、期权交易、VaR 的前置滤波器。α+β 接近 1 描述波动的高度持续性；标准化残差还可以再接厚尾（t 分布）。",
+    caveat:
+      "GARCH 拟合的是波动，不是方向，别指望它预测涨跌。结构突变（体制切换）会让参数看起来「永久持续」。",
+    related: ["volatility", "autocorrelation", "heteroskedasticity", "value-at-risk"],
   },
   {
     slug: "merton-model",

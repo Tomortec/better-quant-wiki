@@ -36,7 +36,7 @@ export const strategies: Concept[] = [
       "价格、利差或指标偏离某均衡后倾向于拉回。统计上是负自相关或平稳过程。",
     why: "做市、配对交易、短周期 alpha 的默认假设。与动量共存：短期噪声回归、中期趋势、长期估值回归。",
     caveat: "均衡本身会走。把随机游走当回归，就是在接飞刀。必须检验平稳性，而不是看「好像超卖」。",
-    related: ["autocorrelation", "pairs-adjacent", "rsi"],
+    related: ["autocorrelation", "pairs-trading", "rsi"],
   },
   {
     slug: "moving-average",
@@ -123,6 +123,19 @@ export const strategies: Concept[] = [
       "价格两次上探相近高点后回落的图形。识别高度主观，样本外很难检验。",
     why: "了解市场语言即可。专业量化会把「形态」定义成可程序化的规则再回测，而不是看图说话。",
     related: ["trend-trading", "mean-reversion"],
+  },
+  {
+    slug: "pairs-trading",
+    zh: "配对交易",
+    en: "Pairs Trading",
+    chapter: "strategies",
+    importance: "supporting",
+    definition:
+      "做多一腿、做空另一腿高度共动的资产，交易价差对均衡的偏离与回归。现代版本用协整或残差 z-score，而不是「两只股票看起来很像」。",
+    why: "统计套利的原型：把方向风险对冲掉，只留下相对定价。是均值回归最直接的商业化形态。",
+    caveat:
+      "协整关系会破裂：并购、监管、商业模式分叉都能让「历史上的价差」不再回来。配对一多，多重检验与拥挤问题立刻出现。",
+    related: ["mean-reversion", "market-neutral", "z-score", "arbitrageur"],
   },
   {
     slug: "market-neutral",
@@ -218,6 +231,49 @@ export const strategies: Concept[] = [
     caveat:
       "前视偏差、幸存者偏差、交易成本、无限卖空、过拟合、多重检验，任意一条都可以把夏普从 2 变到 0。样本外与纸交易是必经关。",
     related: ["alpha", "p-value", "t-test"],
+  },
+  {
+    slug: "value-at-risk",
+    zh: "在险价值",
+    en: "Value at Risk",
+    abbr: "VaR",
+    chapter: "risk",
+    importance: "core",
+    definition:
+      "给定置信水平与持有期下，「正常情况下最多亏多少」的分位数：95% 日 VaR 就是损益分布的 5% 左尾分位。它是分位数，不是「最大可能亏损」。",
+    why: "监管资本、风险限额、保证金估算的通用语言。估计方法分三类：历史模拟、参数法（方差—协方差）、蒙特卡洛。",
+    caveat:
+      "VaR 不说超过它之后会亏多少（那是 ES/预期亏损的事）；正态假设的 VaR 在厚尾下系统性偏小。95% 日 VaR 意味着平均每月约一天被击穿——击穿频率本身就要回测。",
+    related: ["monte-carlo", "probability-distribution", "drawdown", "volatility"],
+  },
+  {
+    slug: "drawdown",
+    zh: "回撤",
+    en: "Drawdown",
+    chapter: "risk",
+    importance: "core",
+    definition:
+      "净值从历史峰值到随后谷底的跌幅。最大回撤（MDD）是整条净值曲线上最深的一次。",
+    formula:
+      "\\mathrm{DD}_t=\\frac{\\max_{s\\le t}V_s-V_t}{\\max_{s\\le t}V_s}",
+    why: "杠杆策略的生存约束是路径：亏 50% 需要赚 100% 才回本。回撤持续期（水下时间）往往比深度更折磨客户与 PB。",
+    caveat:
+      "CAGR 与夏普都看不见回撤。两个年化相同的策略，MDD 20% 与 MDD 60% 是完全不同的产品。",
+    related: ["leverage", "sharpe-ratio", "cagr", "ltcm"],
+  },
+  {
+    slug: "kelly-criterion",
+    zh: "凯利准则",
+    en: "Kelly Criterion",
+    chapter: "risk",
+    importance: "supporting",
+    definition:
+      "重复下注中最大化对数财富增长率的仓位比例。简单赌局有解析解；连续收益、小 edge 下约为超额期望除以方差。",
+    formula: "f^*=\\frac{\\mu-r_f}{\\sigma^2}\\quad(\\text{连续近似})",
+    why: "把「看好」翻译成「买多少」的数学桥梁。满凯利波动极大，实务多用分数凯利（½ 或 ¼）换生存率。",
+    caveat:
+      "凯利假设你确切知道 edge 与方差——估计误差之下，满凯利很容易变成过度下注。它最大化长期增长率，不保证有限期内不破产。",
+    related: ["expected-value", "leverage", "drawdown"],
   },
   {
     slug: "short-squeeze",

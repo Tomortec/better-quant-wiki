@@ -51,6 +51,18 @@ export const macro: Concept[] = [
     related: ["gdp", "growth-rate", "productivity"],
   },
   {
+    slug: "productivity",
+    zh: "生产率",
+    en: "Productivity",
+    chapter: "macro",
+    importance: "context",
+    definition:
+      "单位投入（劳动、资本）的产出。长期实际工资、潜在增长与企业利润率的最终来源；全要素生产率（TFP）是剔除投入增长后的剩余。",
+    why: "长期股权回报的天花板由它决定；AI 叙事最终也要落到生产率数据上才算数。",
+    caveat: "生产率测算噪音大、修订多，季度读数不适合当交易信号。",
+    related: ["economic-growth", "gdp", "knowledge-economy"],
+  },
+  {
     slug: "inflation",
     zh: "通货膨胀",
     en: "Inflation",
@@ -70,7 +82,20 @@ export const macro: Concept[] = [
     definition:
       "物价极高速度、自我强化的上涨，货币作为记账单位和储藏手段崩溃。常与财政赤字货币化相连。",
     why: "极端情形提醒：名义资产的真实收益可以为大负。对多数发达市场策略不是日常输入，但是尾部情景。",
-    related: ["inflation", "velocity-of-money", "fiscal-adjacent"],
+    related: ["inflation", "velocity-of-money", "fiscal-policy"],
+  },
+  {
+    slug: "deflation",
+    zh: "通货紧缩",
+    en: "Deflation",
+    chapter: "macro",
+    importance: "supporting",
+    definition:
+      "一般价格水平持续下降。名义利率有有效下限时，通缩推高实际利率、加重债务人的真实负担，并诱导延迟消费，自我强化。",
+    why: "大萧条与日本「失去的三十年」都是通缩剧本。通缩预期上升时，名义债跑赢、现金变贵、信用受损。",
+    caveat:
+      "技术进步带来的个别商品降价不等于通缩螺旋。区别在于是否伴随货币与信用收缩。",
+    related: ["inflation", "great-depression", "monetary-policy", "interest-rate"],
   },
   {
     slug: "unemployment",
@@ -104,7 +129,20 @@ export const macro: Concept[] = [
     definition:
       "经济围绕长期趋势的扩张—峰值—衰退—复苏循环。长度不规则，没有可靠的「平均四年」时钟。",
     why: "资产与因子有周期敏感性：信用利差、小盘、价值/成长、周期股，都是周期资产。",
-    related: ["gdp", "recession-adjacent", "housing-bubble"],
+    related: ["gdp", "recession", "housing-bubble"],
+  },
+  {
+    slug: "recession",
+    zh: "经济衰退",
+    en: "Recession",
+    chapter: "macro",
+    importance: "supporting",
+    definition:
+      "经济活动广泛、持续数月以上的收缩。美国由 NBER 事后认定；「连续两个季度 GDP 负增长」只是经验规则，不是官方定义。",
+    why: "衰退期信用利差走阔、盈利下修、失业上升、央行宽松——因子与资产的表现整个换一套。收益率曲线倒挂预测的对象就是它。",
+    caveat:
+      "NBER 认定滞后半年以上，交易用不上。市场定价的是衰退概率的变化，不是宣布本身。",
+    related: ["business-cycle", "inverted-yield-curve", "unemployment", "great-depression"],
   },
   {
     slug: "great-depression",
@@ -115,7 +153,7 @@ export const macro: Concept[] = [
     definition:
       "1929 年起全球性深度衰退：产出崩溃、通缩、银行挤兑、贸易萎缩。它塑造了现代央行、存款保险与宏观稳定政策。",
     why: "作为尾部模板：流动性消失、去杠杆螺旋、政策滞后。任何风险模型若在样本里抹掉这类事件，都会过于乐观。",
-    related: ["housing-bubble", "deflation-adjacent", "ltcm"],
+    related: ["housing-bubble", "deflation", "ltcm"],
   },
   {
     slug: "housing-bubble",
@@ -137,7 +175,7 @@ export const macro: Concept[] = [
     definition:
       "强调短期有效需求不足、价格与工资粘性，主张用财政与货币政策稳定产出与就业。",
     why: "理解为什么衰退时政府加赤字、央行扩表。交易的是政策反应函数，不只是「自由市场会出清」。",
-    related: ["monetary-policy", "fiscal-adjacent", "neoliberalism"],
+    related: ["monetary-policy", "fiscal-policy", "neoliberalism"],
   },
   {
     slug: "neoliberalism",
@@ -194,6 +232,19 @@ export const macro: Concept[] = [
       "央行买卖证券（或做回购）以调节准备金与短端利率。是常规货币政策的实施工具。",
     why: "理解央行如何把政策利率「做」到市场上。量化宽松是 OMO 在规模与久期上的极端延伸。",
     related: ["monetary-policy", "qe", "federal-funds-rate"],
+  },
+  {
+    slug: "fiscal-policy",
+    zh: "财政政策",
+    en: "Fiscal Policy",
+    chapter: "macro",
+    importance: "supporting",
+    definition:
+      "政府通过税收、支出与赤字影响总需求。与货币政策分属两条线：财政直接创造私人部门收入，货币经由利率与资产负债表传导。",
+    why: "赤字与发债计划决定国债供给（进而期限溢价），转移支付直接进企业盈利。2009 与 2020 年的行情里，财政是第一变量。",
+    caveat:
+      "财政主导（fiscal dominance）时期，央行独立性受压，通胀与债券的定价逻辑会变——不能把货币政策当唯一变量。",
+    related: ["monetary-policy", "keynesian-economics", "trade-deficit", "qe"],
   },
   {
     slug: "monetary-policy",
@@ -266,6 +317,20 @@ export const macro: Concept[] = [
     related: ["interest-rate", "business-cycle", "duration"],
   },
   {
+    slug: "purchasing-power-parity",
+    zh: "购买力平价",
+    en: "Purchasing Power Parity",
+    abbr: "PPP",
+    chapter: "macro",
+    importance: "supporting",
+    definition:
+      "同一篮子商品在两国应卖同一价格的汇率理论：汇率长期应反映相对物价水平。分绝对 PPP 与相对 PPP（通胀差决定汇率变化率）。",
+    why: "判断汇率「贵不贵」的长期锚，巨无霸指数就是它的科普版。跨国比较 GDP 时，PPP 口径与市场汇率口径的结论会差很多。",
+    caveat:
+      "PPP 是十年尺度的引力，不是交易信号：汇率偏离 PPP 一半可以持续很多年（非贸易品、巴拉萨—萨缪尔森效应、资本流动）。",
+    related: ["exchange-rate", "inflation", "carry-trade"],
+  },
+  {
     slug: "tariff",
     zh: "关税",
     en: "Tariff",
@@ -336,6 +401,7 @@ export const macro: Concept[] = [
     slug: "gini-index",
     zh: "基尼系数",
     en: "Gini Coefficient",
+    aliases: ["Gini Index"],
     chapter: "macro",
     importance: "context",
     definition:
