@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "没有这条笔记",
+  robots: { index: false, follow: true },
+};
 
 export default function NotFound() {
   return (

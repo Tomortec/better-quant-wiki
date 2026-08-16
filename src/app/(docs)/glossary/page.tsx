@@ -1,13 +1,31 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Link from "next/link";
 import { allConcepts, importanceLabel } from "@/content/glossary";
 import { chapters } from "@/content/chapters";
 import type { Importance } from "@/content/types";
 import { GlossaryFilter } from "@/components/glossary-filter";
+import { JsonLd } from "@/components/json-ld";
+import { glossaryIndexJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "术语表 · Glossary",
-  description: "全部量化核心术语，中英对照，按笔记章节分组。",
+  description:
+    "量化金融核心术语表，中英对照：定义、公式、误区，按概率到风险九章分组。Better Quant Wiki glossary.",
+  keywords: [
+    "量化术语",
+    "量化金融术语表",
+    "quant glossary",
+    "quantitative finance glossary",
+    "中英对照",
+  ],
+  alternates: { canonical: "/glossary" },
+  openGraph: {
+    type: "website",
+    title: "术语表 · Glossary",
+    description: "全部量化核心术语，中英对照，按笔记章节分组。",
+    url: "/glossary",
+  },
 };
 
 export default function GlossaryPage() {
@@ -18,6 +36,7 @@ export default function GlossaryPage() {
 
   return (
     <div className="mx-auto max-w-2xl">
+      <JsonLd data={glossaryIndexJsonLd(allConcepts)} />
       <h1 className="text-3xl font-semibold tracking-tight">
         术语表
         <span className="mt-1 block font-mono text-base font-normal text-muted-foreground">
@@ -40,7 +59,9 @@ export default function GlossaryPage() {
           .map((k) => `${importanceLabel[k].zh} ${importanceLabel[k].en}`)
           .join(" · ")}
       </p>
-      <GlossaryFilter grouped={grouped} />
+      <Suspense fallback={null}>
+        <GlossaryFilter grouped={grouped} />
+      </Suspense>
     </div>
   );
 }

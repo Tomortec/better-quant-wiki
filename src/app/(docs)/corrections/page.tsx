@@ -1,14 +1,26 @@
 import type { Metadata } from "next";
 import { corrections } from "@/content/corrections";
+import { JsonLd } from "@/components/json-ld";
+import { correctionsJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "原文勘误 · Corrections",
-  description: "Quant Wiki /basic 词条中已核对并改正的错误与混淆。",
+  description:
+    "Quant Wiki /basic 词条中已核对并改正的错误与混淆：编码错误、概念张冠李戴、重复条目。",
+  keywords: ["Quant Wiki", "勘误", "quant wiki corrections", "量化金融"],
+  alternates: { canonical: "/corrections" },
+  openGraph: {
+    type: "article",
+    title: "原文勘误 · Corrections",
+    description: "Quant Wiki /basic 词条中已核对并改正的错误与混淆。",
+    url: "/corrections",
+  },
 };
 
 export default function CorrectionsPage() {
   return (
     <article className="mx-auto max-w-2xl">
+      <JsonLd data={correctionsJsonLd()} />
       <h1 className="text-3xl font-semibold tracking-tight">
         原文勘误
         <span className="mt-1 block font-mono text-base font-normal text-muted-foreground">

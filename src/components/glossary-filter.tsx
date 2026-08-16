@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import type { Concept, Importance } from "@/content/types";
 import type { Chapter } from "@/content/types";
 import { Input } from "@/components/ui/input";
@@ -13,7 +14,8 @@ export function GlossaryFilter({
 }: {
   grouped: { ch: Chapter; items: Concept[] }[];
 }) {
-  const [q, setQ] = useState("");
+  const searchParams = useSearchParams();
+  const [q, setQ] = useState(searchParams.get("q") ?? "");
   const [imp, setImp] = useState<Importance | "all">("all");
 
   const filtered = useMemo(() => {

@@ -1,15 +1,29 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { chapters } from "@/content/chapters";
 import { allConcepts } from "@/content/glossary";
 import { corrections } from "@/content/corrections";
 import { Badge } from "@/components/ui/badge";
+import { JsonLd } from "@/components/json-ld";
+import { homeJsonLd } from "@/lib/seo";
 import { site } from "@/lib/site";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "/",
+    title: `${site.nameZh} · ${site.nameEn}`,
+    description: site.description,
+  },
+};
 
 export default function HomePage() {
   const core = allConcepts.filter((c) => c.importance === "core").length;
 
   return (
     <main className="mx-auto w-full max-w-5xl px-4 py-16 sm:px-6 sm:py-24">
+      <JsonLd data={homeJsonLd(chapters)} />
       <p className="font-mono text-xs tracking-widest text-muted-foreground uppercase">
         {site.nameEn}
       </p>
@@ -21,6 +35,9 @@ export default function HomePage() {
       <p className="mt-6 max-w-2xl text-[16px] leading-7 text-muted-foreground">
         源材料来自 Quant Wiki 的「量化金融基本概念」（约 192 条 Investopedia
         式词条）。这里按从业者的知识结构重写：去掉重复和正确性错误，每条中英对照，只保留定义、公式、用途和误区。
+      </p>
+      <p className="mt-3 max-w-2xl text-[15px] leading-7 text-muted-foreground">
+        {site.descriptionEn}
       </p>
 
       <div className="mt-8 flex flex-wrap gap-3">

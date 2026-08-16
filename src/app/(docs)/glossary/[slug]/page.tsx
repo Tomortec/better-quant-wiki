@@ -5,7 +5,9 @@ import { allConcepts, getConcept } from "@/content/glossary";
 import { chapterById } from "@/content/chapters";
 import { Formula } from "@/components/formula";
 import { ImportanceBadge, RelatedList } from "@/components/concept-card";
+import { JsonLd } from "@/components/json-ld";
 import { TermTitle } from "@/components/term";
+import { termJsonLd, termMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -17,10 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const c = getConcept(slug);
   if (!c) return {};
-  return {
-    title: `${c.zh} · ${c.en}`,
-    description: c.definition,
-  };
+  return termMetadata(c);
 }
 
 export default async function ConceptPage({ params }: Props) {
@@ -31,6 +30,7 @@ export default async function ConceptPage({ params }: Props) {
 
   return (
     <article className="mx-auto max-w-2xl">
+      <JsonLd data={termJsonLd(c, ch)} />
       <p className="font-mono text-xs text-muted-foreground">
         <Link href="/glossary" className="hover:underline">
           Glossary
