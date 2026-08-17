@@ -3,6 +3,7 @@ import Link from "next/link";
 import { chapters } from "@/content/chapters";
 import { chapterQuestionCounts } from "@/content/practice";
 import { BackupControls } from "@/components/practice/backup-controls";
+import { PracticeHomeCta } from "@/components/practice/practice-home-cta";
 import { RecentSessions } from "@/components/practice/recent-sessions";
 import { ReviewBanner } from "@/components/practice/review-banner";
 
@@ -40,24 +41,9 @@ export default function PracticePage() {
         <ReviewBanner />
       </div>
 
-      <div className="mt-6 flex flex-wrap gap-3 text-sm">
-        <Link
-          href="/practice/review"
-          className="inline-flex h-9 items-center rounded-lg bg-primary px-3 font-medium text-primary-foreground"
-        >
-          开始温习
-        </Link>
-        <Link
-          href="/practice/wrong"
-          className="inline-flex h-9 items-center rounded-lg border border-border px-3 hover:bg-muted"
-        >
-          错题本
-        </Link>
-      </div>
+      <PracticeHomeCta />
 
-      <BackupControls />
-
-      <section className="mt-14">
+      <section id="chapters" className="mt-14 scroll-mt-24">
         <h2 className="text-sm font-medium tracking-tight">
           按章测试
           <span className="ml-2 font-mono text-xs font-normal text-muted-foreground">
@@ -98,6 +84,19 @@ export default function PracticePage() {
       </section>
 
       <RecentSessions />
+
+      <section className="mt-12">
+        <h2 className="text-sm font-medium tracking-tight">
+          进度
+          <span className="ml-2 font-mono text-xs font-normal text-muted-foreground">
+            Backup
+          </span>
+        </h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          进度只存在这个浏览器。换设备前导出一份 JSON。
+        </p>
+        <BackupControls />
+      </section>
     </div>
   );
 }

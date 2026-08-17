@@ -21,9 +21,14 @@ export function BackupControls() {
 
   function onFile(file: File | undefined) {
     if (!file) return;
+    if (!window.confirm("导入会覆盖此浏览器里的练习进度，确定吗？")) {
+      if (inputRef.current) inputRef.current.value = "";
+      return;
+    }
     void file.text().then((text) => {
       const result = importStoreJson(text);
       setMessage(result.ok ? "已导入进度。" : result.error);
+      if (inputRef.current) inputRef.current.value = "";
     });
   }
 

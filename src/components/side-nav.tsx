@@ -59,7 +59,7 @@ export function SideNav({ pathname }: { pathname: string }) {
                 <Link
                   href={item.href}
                   className={cn(
-                    "flex items-center rounded-md px-2 py-1.5",
+                    "flex w-full items-center rounded-md px-2 py-1.5",
                     active
                       ? "bg-muted text-foreground"
                       : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",

@@ -1,7 +1,22 @@
 "use client";
 
 import Link from "next/link";
+import { chapterById } from "@/content/chapters";
+import type { SessionRecord } from "@/lib/practice/store";
+import { Badge } from "@/components/ui/badge";
 import { usePracticeStore } from "./use-practice-store";
+
+function sessionTitle(s: SessionRecord): string {
+  if (s.mode === "review") return "温习";
+  if (s.mode === "wrong") return "错题";
+  const ch = s.chapter ? chapterById[s.chapter] : undefined;
+  if (!ch) return "练习";
+  if (s.sectionId) {
+    const sec = ch.sections.find((x) => x.id === s.sectionId);
+    return sec ? `${ch.zh} / ${sec.title}` : ch.zh;
+  }
+  return ch.zh;
+}
 
 export function RecentSessions() {
   const { sessions } = usePracticeStore();
@@ -19,18 +34,13 @@ export function RecentSessions() {
               href={`/practice/session/${s.id}`}
               className="flex items-baseline justify-between gap-4 py-3 hover:bg-muted/40"
             >
-              <span>
-                {s.mode === "review"
-                  ? "温习"
-                  : s.mode === "wrong"
-                    ? "错题"
-                    : s.chapter ?? "练习"}
-                {s.sectionId ? ` / ${s.sectionId}` : ""}
-                <span className="ml-2 font-mono text-[11px] text-muted-foreground">
+              <span className="flex min-w-0 flex-wrap items-baseline gap-2">
+                <span className="truncate">{sessionTitle(s)}</span>
+                <Badge variant="outline" className="font-mono text-[10px] font-normal">
                   {s.finishedAt ? "已交卷" : "进行中"}
-                </span>
+                </Badge>
               </span>
-              <span className="font-mono text-xs text-muted-foreground">
+              <span className="shrink-0 font-mono text-xs text-muted-foreground">
                 {s.score ? `${s.score.correct}/${s.score.total}` : `${s.questionIds.length} 题`}
               </span>
             </Link>
