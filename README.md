@@ -23,6 +23,7 @@ Quant Wiki 的 `/basic` 列表覆盖面不错，但原文长、重复，还有�
 
 - Nine reading notes (probability → risk) / 九章阅读笔记
 - Searchable bilingual glossary / 可检索术语表：中英对照、公式、误区
+- Practice quizzes / 章测、错题与温习（进度存在浏览器本地）
 - Importance: **core** / **supporting** / **context**
 - Corrections to Quant Wiki `/basic`
 
@@ -67,6 +68,7 @@ npm run build
 src/app/                 # Next.js App Router pages
 src/content/chapters.ts  # nine reading notes
 src/content/glossary/    # bilingual quant glossary
+src/content/practice/    # quizzes; authoring guide in README.md
 src/content/corrections.ts
 ```
 

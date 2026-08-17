@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { chapters } from "@/content/chapters";
+import { DueBadge } from "@/components/practice/review-banner";
 import { cn } from "@/lib/utils";
 
 const extra = [
-  { href: "/glossary", zh: "术语表", en: "Glossary" },
-  { href: "/corrections", zh: "原文勘误", en: "Corrections" },
+  { href: "/glossary", zh: "术语表", en: "Glossary", match: "/glossary" },
+  { href: "/practice", zh: "练习", en: "Practice", match: "/practice" },
+  { href: "/corrections", zh: "原文勘误", en: "Corrections", match: "/corrections" },
 ];
 
 export function SideNav({ pathname }: { pathname: string }) {
@@ -49,23 +51,29 @@ export function SideNav({ pathname }: { pathname: string }) {
           Reference
         </p>
         <ul className="space-y-0.5">
-          {extra.map((item) => (
-            <li key={item.href}>
-              <Link
-                href={item.href}
-                className={cn(
-                  "flex flex-col rounded-md px-2 py-1.5",
-                  pathname === item.href ||
-                    (item.href === "/glossary" && pathname.startsWith("/glossary/"))
-                    ? "bg-muted text-foreground"
-                    : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
-                )}
-              >
-                <span>{item.zh}</span>
-                <span className="font-mono text-[10px] opacity-70">{item.en}</span>
-              </Link>
-            </li>
-          ))}
+          {extra.map((item) => {
+            const active =
+              pathname === item.href || pathname.startsWith(`${item.match}/`);
+            return (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className={cn(
+                    "flex w-full items-center rounded-md px-2 py-1.5",
+                    active
+                      ? "bg-muted text-foreground"
+                      : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
+                  )}
+                >
+                  <span className="flex min-w-0 flex-col">
+                    <span>{item.zh}</span>
+                    <span className="font-mono text-[10px] opacity-70">{item.en}</span>
+                  </span>
+                  {item.href === "/practice" ? <DueBadge /> : null}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </nav>

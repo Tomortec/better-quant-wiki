@@ -52,6 +52,9 @@ export function SiteHeader() {
             <NavLink href="/glossary" active={pathname.startsWith("/glossary")}>
               术语
             </NavLink>
+            <NavLink href="/practice" active={pathname.startsWith("/practice")}>
+              练习
+            </NavLink>
             <NavLink href="/corrections" active={pathname.startsWith("/corrections")}>
               勘误
             </NavLink>

@@ -9,6 +9,8 @@ import { JsonLd } from "@/components/json-ld";
 import { Prose } from "@/components/prose";
 import { TermLink } from "@/components/term";
 import { ImportanceBadge } from "@/components/concept-card";
+import { ChapterQuizCta, SectionQuizCta } from "@/components/practice/practice-cta";
+import { ReviewBanner } from "@/components/practice/review-banner";
 import { chapterJsonLd, chapterMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -77,6 +79,7 @@ export default async function NotePage({ params }: Props) {
             <Formula key={f.label} tex={f.tex} label={f.label} />
           ))}
           {section.conceptSlugs.length > 0 ? (
+            <>
             <ul className="mt-6 space-y-2 border-t border-border/70 pt-4">
               {section.conceptSlugs.map((slug) => {
                 const c = getConcept(slug);
@@ -92,11 +95,18 @@ export default async function NotePage({ params }: Props) {
                 );
               })}
             </ul>
-          ) : null}
+            <SectionQuizCta chapter={ch.id} sectionId={section.id} />
+            </>
+          ) : (
+            <SectionQuizCta chapter={ch.id} sectionId={section.id} />
+          )}
         </section>
       ))}
 
-      <nav className="mt-16 flex justify-between gap-6 border-t border-border pt-6 text-sm">
+      <div className="mt-16 space-y-4 border-t border-border pt-6">
+        <ReviewBanner compact />
+        <ChapterQuizCta chapter={ch.id} />
+        <nav className="flex justify-between gap-6 text-sm">
         {prev ? (
           <Link href={`/notes/${prev.id}`} className="hover:underline">
             <span className="block font-mono text-[11px] text-muted-foreground">
@@ -117,7 +127,8 @@ export default async function NotePage({ params }: Props) {
         ) : (
           <span />
         )}
-      </nav>
+        </nav>
+      </div>
     </article>
   );
 }

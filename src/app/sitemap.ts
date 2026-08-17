@@ -16,6 +16,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: pageUrl("/practice"),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
       url: pageUrl("/corrections"),
       changeFrequency: "monthly",
       priority: 0.6,
@@ -24,6 +29,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: pageUrl(`/notes/${ch.id}`),
       changeFrequency: "monthly" as const,
       priority: 0.8,
+    })),
+    ...chapters.map((ch) => ({
+      url: pageUrl(`/practice/chapter/${ch.id}`),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
     })),
     ...allConcepts.map((c) => ({
       url: pageUrl(`/glossary/${c.slug}`),

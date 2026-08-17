@@ -63,6 +63,31 @@ export function SearchCommand({
             </CommandItem>
           ))}
         </CommandGroup>
+        <CommandGroup heading="练习">
+          <CommandItem
+            value="练习 practice 测一测 错题 温习"
+            onSelect={() => {
+              router.push("/practice");
+              onOpenChange(false);
+            }}
+          >
+            <span>练习</span>
+            <span className="font-mono text-xs text-muted-foreground">Practice</span>
+          </CommandItem>
+          {chapters.map((ch) => (
+            <CommandItem
+              key={`quiz-${ch.id}`}
+              value={`测一测 ${ch.zh} ${ch.en} quiz practice`}
+              onSelect={() => {
+                router.push(`/practice/chapter/${ch.id}`);
+                onOpenChange(false);
+              }}
+            >
+              <span>测一测 · {ch.zh}</span>
+              <span className="font-mono text-xs text-muted-foreground">{ch.en}</span>
+            </CommandItem>
+          ))}
+        </CommandGroup>
         <CommandGroup heading="术语">
           {allConcepts.map((c) => (
             <CommandItem

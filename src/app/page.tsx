@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { JsonLd } from "@/components/json-ld";
 import { homeJsonLd } from "@/lib/seo";
 import { site } from "@/lib/site";
+import { ReviewBanner } from "@/components/practice/review-banner";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -48,11 +49,21 @@ export default function HomePage() {
           从笔记开始
         </Link>
         <Link
+          href="/practice"
+          className="inline-flex h-9 items-center rounded-lg border border-border px-3 text-sm hover:bg-muted"
+        >
+          测一测
+        </Link>
+        <Link
           href="/glossary"
           className="inline-flex h-9 items-center rounded-lg border border-border px-3 text-sm hover:bg-muted"
         >
           打开术语表
         </Link>
+      </div>
+
+      <div className="mt-10 max-w-2xl">
+        <ReviewBanner />
       </div>
 
       <dl className="mt-14 grid grid-cols-3 gap-6 border-y border-border py-6 sm:max-w-lg">

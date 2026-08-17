@@ -249,5 +249,10 @@ ${terms}
 ## Corrections
 
 - [原文勘误 / Corrections](${pageUrl("/corrections")}): factual errors and conflations found in Quant Wiki /basic.
+
+## Practice
+
+- [练习 / Practice](${pageUrl("/practice")}): chapter quizzes, wrong-question book, and spaced review. Progress is stored locally in the browser.
+${chapters.map((ch) => `- [${ch.zh} quiz](${pageUrl(`/practice/chapter/${ch.id}`)})`).join("\n")}
 `;
 }
