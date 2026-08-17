@@ -11,17 +11,34 @@ function termAccept(c: Concept): string[] {
   return unique([c.zh, c.en, c.abbr, ...(c.aliases ?? [])]);
 }
 
+function sectionIdBySlug(): Map<string, string> {
+  const map = new Map<string, string>();
+  for (const ch of chapters) {
+    for (const section of ch.sections) {
+      for (const slug of section.conceptSlugs) {
+        const key = `${ch.id}:${slug}`;
+        if (!map.has(key)) map.set(key, section.id);
+      }
+    }
+  }
+  return map;
+}
+
+const SECTION_BY_SLUG = sectionIdBySlug();
+
 export function deriveTermQuestions(): TermQuestion[] {
   const out: TermQuestion[] = [];
   for (const c of allConcepts) {
     if (c.importance !== "core") continue;
     const accept = termAccept(c);
     const abbr = c.abbr ? `（${c.abbr}）` : "";
+    const sectionId = SECTION_BY_SLUG.get(`${c.chapter}:${c.slug}`);
     out.push({
       id: `term:${c.slug}:en`,
       kind: "term",
       prompt: "en",
       chapter: c.chapter,
+      sectionId,
       conceptSlugs: [c.slug],
       difficulty: 1,
       skill: "recall",
@@ -34,6 +51,7 @@ export function deriveTermQuestions(): TermQuestion[] {
       kind: "term",
       prompt: "definition",
       chapter: c.chapter,
+      sectionId,
       conceptSlugs: [c.slug],
       difficulty: 1,
       skill: "recall",
