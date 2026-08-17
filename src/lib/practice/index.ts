@@ -26,6 +26,7 @@ export {
   subscribeStore,
   updateStore,
   upsertSession,
+  withSession,
   wrongCount,
 } from "./store";
 export type { FeedbackMode, PracticeStoreV1, SessionMode, SessionRecord } from "./store";

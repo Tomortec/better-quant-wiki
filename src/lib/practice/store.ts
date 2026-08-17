@@ -96,6 +96,11 @@ export function updateStore(fn: (store: PracticeStoreV1) => PracticeStoreV1): Pr
   return next;
 }
 
+export function withSession(store: PracticeStoreV1, session: SessionRecord): PracticeStoreV1 {
+  const rest = store.sessions.filter((s) => s.id !== session.id);
+  return { ...store, sessions: [session, ...rest].slice(0, MAX_SESSIONS) };
+}
+
 export function newSessionId(): string {
   const rand =
     typeof crypto !== "undefined" && crypto.randomUUID
@@ -105,11 +110,7 @@ export function newSessionId(): string {
 }
 
 export function upsertSession(session: SessionRecord): PracticeStoreV1 {
-  return updateStore((store) => {
-    const rest = store.sessions.filter((s) => s.id !== session.id);
-    const sessions = [session, ...rest].slice(0, MAX_SESSIONS);
-    return { ...store, sessions };
-  });
+  return updateStore((store) => withSession(store, session));
 }
 
 export function getSession(id: string): SessionRecord | undefined {

@@ -11,6 +11,26 @@ export function usePracticeStore() {
   return useSyncExternalStore(subscribeStore, getStoreSnapshot, getServerSnapshot);
 }
 
+function subscribeHydrated() {
+  return () => {};
+}
+
+function getHydratedSnapshot() {
+  return true;
+}
+
+function getHydratedServerSnapshot() {
+  return false;
+}
+
+export function useHydrated() {
+  return useSyncExternalStore(
+    subscribeHydrated,
+    getHydratedSnapshot,
+    getHydratedServerSnapshot,
+  );
+}
+
 let cachedNow = 0;
 
 function subscribeNow(onChange: () => void) {

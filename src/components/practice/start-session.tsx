@@ -22,7 +22,7 @@ import {
 } from "@/lib/practice/store";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { usePracticeStore } from "./use-practice-store";
+import { useHydrated, usePracticeStore } from "./use-practice-store";
 
 const KINDS: QuestionKind[] = ["single", "multi", "truefalse", "match", "term"];
 const DIFFS: Difficulty[] = [1, 2, 3];
@@ -41,6 +41,7 @@ export function StartSession({
   title?: string;
 }) {
   const router = useRouter();
+  const hydrated = useHydrated();
   const store = usePracticeStore();
   const [difficulties, setDifficulties] = useState<Difficulty[]>([]);
   const [kinds, setKinds] = useState<QuestionKind[]>([]);
@@ -184,11 +185,12 @@ export function StartSession({
       ) : null}
 
       <p className="mt-6 text-sm text-muted-foreground">
-        本题约 {preview.length} 道
-        {title ? ` · ${title}` : ""}
+        {hydrated
+          ? `本题约 ${preview.length} 道${title ? ` · ${title}` : ""}`
+          : "正在读取进度…"}
       </p>
       {error ? <p className="mt-2 text-sm text-destructive">{error}</p> : null}
-      <Button className="mt-4" onClick={start} disabled={preview.length === 0}>
+      <Button className="mt-4" onClick={start} disabled={!hydrated || preview.length === 0}>
         开始
       </Button>
     </div>
