@@ -34,11 +34,13 @@ export function MatchBoard({
   value,
   onChange,
   disabled,
+  revealed,
 }: {
   question: MatchQuestion;
   value: Record<string, string>;
   onChange: (pairs: Record<string, string>) => void;
   disabled?: boolean;
+  revealed?: boolean;
 }) {
   const rightOrder = seededShuffle(question.right, question.id);
   const [pickedLeft, setPickedLeft] = useState<string | null>(null);
@@ -67,6 +69,8 @@ export function MatchBoard({
           const paired = value[item.id];
           const pairedRight = question.right.find((r) => r.id === paired);
           const active = pickedLeft === item.id;
+          const ok = Boolean(revealed && paired && paired === question.pairs[item.id]);
+          const wrong = Boolean(revealed && paired && paired !== question.pairs[item.id]);
           return (
             <li key={item.id}>
               <button
@@ -77,18 +81,22 @@ export function MatchBoard({
                   else setPickedLeft(item.id);
                 }}
                 className={cn(
-                  "flex w-full flex-col items-start rounded-lg border px-3 py-2 text-left text-sm",
-                  active
-                    ? "border-foreground bg-muted"
-                    : "border-border hover:bg-muted/60",
-                  paired && "border-foreground/40",
+                  "flex w-full flex-col items-start rounded-lg border px-3 py-2 text-left text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none",
+                  active && "border-foreground bg-muted",
+                  !revealed && !active && paired && "border-foreground/40",
+                  !revealed && !active && !paired && "border-border hover:bg-muted/60",
+                  ok && "border-foreground bg-muted",
+                  wrong && "border-destructive text-destructive",
+                  revealed && !paired && "border-border opacity-70",
                 )}
               >
-                <StemText text={item.text} className="text-sm leading-6" />
+                <StemText as="span" text={item.text} className="text-sm leading-6" />
                 {pairedRight ? (
-                  <span className="mt-1 text-[12px] text-muted-foreground">
-                    <StemText text={`↔ ${pairedRight.text}`} className="text-[12px] leading-5" />
-                  </span>
+                  <StemText
+                    as="span"
+                    text={`↔ ${pairedRight.text}`}
+                    className="mt-1 text-[12px] leading-5 text-muted-foreground"
+                  />
                 ) : (
                   <span className="mt-1 font-mono text-[11px] text-muted-foreground">
                     点选，再点右侧配对
@@ -102,6 +110,13 @@ export function MatchBoard({
       <ul className="space-y-2">
         {rightOrder.map((item) => {
           const taken = usedRight.has(item.id);
+          const assignedLeft = Object.entries(value).find(([, r]) => r === item.id)?.[0];
+          const ok = Boolean(
+            revealed && assignedLeft && question.pairs[assignedLeft] === item.id,
+          );
+          const wrong = Boolean(
+            revealed && assignedLeft && question.pairs[assignedLeft] !== item.id,
+          );
           return (
             <li key={item.id}>
               <button
@@ -111,14 +126,16 @@ export function MatchBoard({
                   if (pickedLeft) pair(pickedLeft, item.id);
                 }}
                 className={cn(
-                  "flex w-full items-start rounded-lg border px-3 py-2 text-left text-sm",
-                  taken
-                    ? "border-foreground/40 bg-muted/40 text-muted-foreground"
-                    : "border-border hover:bg-muted/60",
-                  !pickedLeft && "opacity-70",
+                  "flex w-full items-start rounded-lg border px-3 py-2 text-left text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none",
+                  ok && "border-foreground bg-muted",
+                  wrong && "border-destructive text-destructive",
+                  !revealed && taken && "border-foreground/40 bg-muted/40 text-muted-foreground",
+                  !revealed && !taken && "border-border hover:bg-muted/60",
+                  !pickedLeft && !revealed && "opacity-70",
+                  revealed && !assignedLeft && "border-border opacity-70",
                 )}
               >
-                <StemText text={item.text} className="text-sm leading-6" />
+                <StemText as="span" text={item.text} className="text-sm leading-6" />
               </button>
             </li>
           );

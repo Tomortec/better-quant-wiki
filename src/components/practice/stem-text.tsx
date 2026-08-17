@@ -31,8 +31,28 @@ function renderInline(text: string): ReactNode {
   });
 }
 
-export function StemText({ text, className }: { text: string; className?: string }) {
+export function StemText({
+  text,
+  className,
+  as = "div",
+}: {
+  text: string;
+  className?: string;
+  as?: "div" | "span";
+}) {
   const blocks = text.trim().split(/\n\n+/);
+  if (as === "span") {
+    return (
+      <span className={className}>
+        {blocks.map((block, i) => (
+          <span key={i}>
+            {i > 0 ? <br /> : null}
+            {renderInline(block)}
+          </span>
+        ))}
+      </span>
+    );
+  }
   return (
     <div className={className ?? "space-y-3 text-[15px] leading-7"}>
       {blocks.map((block, i) => (
