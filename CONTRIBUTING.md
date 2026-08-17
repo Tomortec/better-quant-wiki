@@ -33,12 +33,15 @@ Content lives in:
 - `src/content/chapters.ts` — nine reading notes
 - `src/content/glossary/*.ts` — terms
 - `src/content/corrections.ts` — mistakes found in the original topic list
+- `src/content/practice/*.ts` — chapter quizzes (see [the authoring guide](src/content/practice/README.md))
 
 Do not paste long encyclopedia articles. Prefer a definition, a formula, why a quant cares, and a caveat.
 
+Practice questions must follow `src/content/practice/README.md`: test practitioner mistakes, hang real `conceptSlugs`, never reuse a published question `id`.
+
 ## Pull requests
 
-1. One concern per PR (a term, a chapter section, or a site fix).
+1. One concern per PR (a term, a chapter section, a quiz item, or a site fix).
 2. If you change a definition, say **why** the old wording was wrong or incomplete.
 3. Keep related `slug`s pointing at real glossary entries.
 4. Run lint / typecheck / build before you push.

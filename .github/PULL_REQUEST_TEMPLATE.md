@@ -9,3 +9,4 @@
 - [ ] Formulas are KaTeX and use the standard symbol
 - [ ] Related slugs point at real glossary entries
 - [ ] I did not paste a long encyclopedia article
+- [ ] New practice questions follow `src/content/practice/README.md` (stable ids, real slugs, no definition-as-MC)
