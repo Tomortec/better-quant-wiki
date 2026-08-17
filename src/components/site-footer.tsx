@@ -18,6 +18,9 @@ export function SiteFooter() {
           >
             GitHub
           </a>
+          <a href="/practice" className="hover:text-foreground">
+            练习
+          </a>
           <a href="/corrections" className="hover:text-foreground">
             勘误
           </a>
